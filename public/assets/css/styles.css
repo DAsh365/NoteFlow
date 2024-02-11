@@ -1,0 +1,58 @@
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f5f5f5;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar {
+  background-color: #1976d2 !important;
+}
+
+.navbar-brand {
+  font-size: 1.5rem;
+}
+
+.btn-outline-light {
+  color: #fff !important;
+  border-color: #fff !important;
+}
+
+.btn-outline-light:hover {
+  color: #1976d2 !important;
+  background-color: #fff !important;
+  border-color: #1976d2 !important;
+}
+
+.card {
+  margin-top: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.note-title,
+.note-textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+.note-title {
+  font-size: 1.5rem;
+}
+
+.note-textarea {
+  min-height: 200px;
+}
+
+.icons {
+  display: flex;
+  align-items: center;
+}
+
+.icons button {
+  margin-right: 10px;
+}

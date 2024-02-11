@@ -1,6 +1,7 @@
 node_modules/
-logs
-*.log
-vendor/
+.env
 .DS_Store
 Thumbs.db
+*.log
+.idea/
+.vscode/

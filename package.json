@@ -1,19 +1,14 @@
 {
-  "name": "noteflow",
+  "name": "note-taker",
   "version": "1.0.0",
-  "description": "A note-taking application",
+  "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [
-    "note",
-    "note-taking",
-    "application"
-  ],
-  "author": "Your Name",
-  "license": "MIT",
+  "author": "",
+  "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.16.4"
   }
 }

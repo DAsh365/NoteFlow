@@ -4,32 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NoteFlow - Notes</title>
-    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="public/assets/css/reset.css">
+    <link rel="stylesheet" href="public/assets/css/styles.css">
 </head>
 <body>
     <header>
         <h1>NoteFlow</h1>
         <button class="btn new-note">New Note</button>
     </header>
-    <main>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="list-container">
-                        <h2>Notes</h2>
-                        <ul class="list-group"></ul>
-                    </div>
+    <main class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="list-container">
+                    <h2>Notes</h2>
+                    <ul class="list-group"></ul>
                 </div>
-                <div class="col-md-8">
-                    <div class="note-container">
-                        <input class="note-title" type="text" placeholder="Note Title">
-                        <textarea class="note-textarea" rows="10" placeholder="Write your note here..."></textarea>
-                        <button class="btn save-note">Save Note</button>
-                    </div>
+            </div>
+            <div class="col-md-8">
+                <div class="note-container">
+                    <input class="note-title" type="text" placeholder="Note Title">
+                    <textarea class="note-textarea" rows="10" placeholder="Write your note here..."></textarea>
+                    <button class="btn save-note">Save Note</button>
                 </div>
             </div>
         </div>
     </main>
-    <script src="assets/js/index.js"></script>
+    <script src="public/assets/js/index.js"></script>
 </body>
 </html>

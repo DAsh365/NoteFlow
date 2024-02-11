@@ -78,7 +78,22 @@ const handleNoteDelete = (e) => {
     .catch((err) => console.error('Error deleting note:', err));
 };
 
+const clearForm = () => {
+  noteTitle.value = '';
+  noteText.value = '';
+};
+
+const handleNewNote = () => {
+  clearForm();
+};
+
+const handleClearForm = () => {
+  clearForm();
+};
+
 saveNoteBtn.addEventListener('click', handleFormSubmit);
 noteList.addEventListener('click', handleNoteDelete);
+newNoteBtn.addEventListener('click', handleNewNote);
+clearBtn.addEventListener('click', handleClearForm);
 
 fetchNotes();

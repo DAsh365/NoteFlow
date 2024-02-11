@@ -58,7 +58,6 @@ const saveNote = (note) => {
 const handleFormSubmit = (e) => {
   e.preventDefault();
   const newNote = {
-    id: Date.now().toString(),
     title: noteTitle.value.trim(),
     text: noteText.value.trim(),
   };
@@ -71,7 +70,7 @@ const handleFormSubmit = (e) => {
 
 const handleNoteDelete = (e) => {
   if (!e.target.matches('.delete-note')) return;
-  const id = e.target.parentNode.dataset.id;
+  const id = e.target.dataset.id;
   fetch(`/api/notes/${id}`, {
     method: 'DELETE',
   })
@@ -79,19 +78,18 @@ const handleNoteDelete = (e) => {
     .catch((err) => console.error('Error deleting note:', err));
 };
 
-const handleNewNote = () => {
-  noteTitle.value = '';
-  noteText.value = '';
-};
-
-const handleClearForm = () => {
-  noteTitle.value = '';
-  noteText.value = '';
-};
-
 saveNoteBtn.addEventListener('click', handleFormSubmit);
+
 noteList.addEventListener('click', handleNoteDelete);
-newNoteBtn.addEventListener('click', handleNewNote);
-clearBtn.addEventListener('click', handleClearForm);
+
+newNoteBtn.addEventListener('click', () => {
+  noteTitle.value = '';
+  noteText.value = '';
+});
+
+clearBtn.addEventListener('click', () => {
+  noteTitle.value = '';
+  noteText.value = '';
+});
 
 fetchNotes();

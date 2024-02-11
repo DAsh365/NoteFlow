@@ -19,7 +19,7 @@ const renderNote = (note) => {
   li.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-center');
   li.innerHTML = `
     <span>${note.title}</span>
-    <button class="btn btn-sm btn-danger delete-note" data-id="${note.id}"><i class="fas fa-trash"></i></button>
+    <button class="btn btn-sm btn-danger delete-note"><i class="fas fa-trash"></i></button>
   `;
   noteList.appendChild(li);
 };
@@ -70,7 +70,7 @@ const handleFormSubmit = (e) => {
 
 const handleNoteDelete = (e) => {
   if (!e.target.matches('.delete-note')) return;
-  const id = e.target.dataset.id;
+  const id = e.target.parentNode.dataset.id;
   fetch(`/api/notes/${id}`, {
     method: 'DELETE',
   })
@@ -79,17 +79,6 @@ const handleNoteDelete = (e) => {
 };
 
 saveNoteBtn.addEventListener('click', handleFormSubmit);
-
 noteList.addEventListener('click', handleNoteDelete);
-
-newNoteBtn.addEventListener('click', () => {
-  noteTitle.value = '';
-  noteText.value = '';
-});
-
-clearBtn.addEventListener('click', () => {
-  noteTitle.value = '';
-  noteText.value = '';
-});
 
 fetchNotes();

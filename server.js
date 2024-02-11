@@ -1,6 +1,7 @@
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
+const open = require('open');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -58,4 +59,7 @@ app.delete('/api/notes/:id', (req, res) => {
     });
 });
 
-app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
+app.listen(PORT, () => {
+    console.log(`Server listening on port ${PORT}`);
+    open(`http://localhost:${PORT}`);
+});

@@ -19,7 +19,7 @@ const renderNote = (note) => {
   li.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-center');
   li.innerHTML = `
     <span>${note.title}</span>
-    <button class="btn btn-sm btn-danger delete-note"><i class="fas fa-trash"></i></button>
+    <button class="btn btn-sm btn-danger delete-note" data-id="${note.id}"><i class="fas fa-trash"></i></button>
   `;
   noteList.appendChild(li);
 };
@@ -58,6 +58,7 @@ const saveNote = (note) => {
 const handleFormSubmit = (e) => {
   e.preventDefault();
   const newNote = {
+    id: Date.now().toString(),
     title: noteTitle.value.trim(),
     text: noteText.value.trim(),
   };
@@ -78,7 +79,19 @@ const handleNoteDelete = (e) => {
     .catch((err) => console.error('Error deleting note:', err));
 };
 
+const handleNewNote = () => {
+  noteTitle.value = '';
+  noteText.value = '';
+};
+
+const handleClearForm = () => {
+  noteTitle.value = '';
+  noteText.value = '';
+};
+
 saveNoteBtn.addEventListener('click', handleFormSubmit);
 noteList.addEventListener('click', handleNoteDelete);
+newNoteBtn.addEventListener('click', handleNewNote);
+clearBtn.addEventListener('click', handleClearForm);
 
 fetchNotes();

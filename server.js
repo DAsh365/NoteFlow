@@ -10,15 +10,15 @@ app.use(express.json());
 app.use(express.static('public'));
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '/index.html'));
+  res.sendFile(path.join(__dirname, '/public/index.html'));
 });
 
 app.get('/notes', (req, res) => {
-  res.sendFile(path.join(__dirname, '/notes.html'));
+  res.sendFile(path.join(__dirname, '/public/notes.html'));
 });
 
 app.get('/api/notes', (req, res) => {
-  fs.readFile('db.json', 'utf8', (err, data) => {
+  fs.readFile('db/db.json', 'utf8', (err, data) => {
     if (err) throw err;
     const notes = JSON.parse(data);
     res.json(notes);
@@ -27,12 +27,12 @@ app.get('/api/notes', (req, res) => {
 
 app.post('/api/notes', (req, res) => {
   const newNote = req.body;
-  fs.readFile('db.json', 'utf8', (err, data) => {
+  fs.readFile('db/db.json', 'utf8', (err, data) => {
     if (err) throw err;
     const notes = JSON.parse(data);
     newNote.id = notes.length + 1;
     notes.push(newNote);
-    fs.writeFile('db.json', JSON.stringify(notes), err => {
+    fs.writeFile('db/db.json', JSON.stringify(notes), err => {
       if (err) throw err;
       res.json(newNote);
     });
@@ -41,11 +41,11 @@ app.post('/api/notes', (req, res) => {
 
 app.delete('/api/notes/:id', (req, res) => {
   const idToDelete = parseInt(req.params.id);
-  fs.readFile('db.json', 'utf8', (err, data) => {
+  fs.readFile('db/db.json', 'utf8', (err, data) => {
     if (err) throw err;
     let notes = JSON.parse(data);
     notes = notes.filter(note => note.id !== idToDelete);
-    fs.writeFile('db.json', JSON.stringify(notes), err => {
+    fs.writeFile('db/db.json', JSON.stringify(notes), err => {
       if (err) throw err;
       res.sendStatus(200);
     });

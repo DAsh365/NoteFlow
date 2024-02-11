@@ -9,6 +9,7 @@ NoteFlow is a simple note-taking application built with Express.js. It allows us
 - [Technologies](#technologies)
 - [Contributing](#contributing)
 - [License](#license)
+- [Deployment](#deployment)
 
 ## Installation
 
@@ -50,3 +51,7 @@ Contributions to NoteFlow are welcome! If you have any suggestions, enhancements
 ## License
 
 NoteFlow is licensed under the [MIT License](LICENSE).
+
+## Deployment
+
+The deployed version of NoteFlow can be accessed [here](https://agile-atoll-80503-dc087548955b.herokuapp.com).

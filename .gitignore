@@ -1,2 +1,6 @@
-node_modules
-package-lock.json
+node_modules/
+logs
+*.log
+vendor/
+.DS_Store
+Thumbs.db

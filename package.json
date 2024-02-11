@@ -1,15 +1,19 @@
 {
   "name": "noteflow",
   "version": "1.0.0",
-  "description": "Note Taker application",
+  "description": "A note-taking application",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },
+  "keywords": [
+    "note",
+    "note-taking",
+    "application"
+  ],
   "author": "Your Name",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.17.1",
-    "uuid": "^9.0.1"
+    "express": "^4.17.1"
   }
 }

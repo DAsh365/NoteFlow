@@ -1,87 +1,76 @@
-const noteForm = document.querySelector('.note-form');
-const noteTitle = document.querySelector('.note-title');
-const noteText = document.querySelector('.note-textarea');
-const saveNoteBtn = document.querySelector('.save-note');
-const newNoteBtn = document.querySelector('.new-note');
-const clearBtn = document.querySelector('.clear-btn');
-const noteList = document.querySelector('#list-group');
+document.addEventListener('DOMContentLoaded', () => {
+  const noteList = document.querySelector(".list-container .list-group");
+  const noteTitle = document.querySelector(".note-title");
+  const noteText = document.querySelector(".note-text");
+  const saveNoteBtn = document.querySelector(".save-note");
+  const newNoteBtn = document.querySelector(".new-note");
+  const noteId = document.querySelector("#note-id");
 
-const show = (elem) => {
-  elem.style.display = 'block';
-};
+  let editingNote = false;
 
-const hide = (elem) => {
-  elem.style.display = 'none';
-};
+  const renderNotes = (notes) => {
+      noteList.innerHTML = '';
+      notes.forEach(note => {
+          const noteEl = document.createElement('button');
+          noteEl.classList.add('list-group-item', 'list-group-item-action');
+          noteEl.id = note.id;
+          noteEl.innerText = note.title;
+          noteEl.addEventListener('click', () => loadNote(note));
+          noteList.appendChild(noteEl);
+      });
+  };
 
-const renderNote = (note) => {
-  const li = document.createElement('li');
-  li.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-center');
-  li.innerHTML = `
-    <span>${note.title}</span>
-    <button class="btn btn-sm btn-danger delete-note"><i class="fas fa-trash"></i></button>
-  `;
-  noteList.appendChild(li);
-};
+  const loadNote = (note) => {
+      noteTitle.value = note.title;
+      noteText.value = note.text;
+      noteId.value = note.id;
+      editingNote = true;
+  };
 
-const renderNotes = (notes) => {
-  noteList.innerHTML = '';
-  notes.forEach((note) => {
-    renderNote(note);
-  });
-};
+  const saveOrUpdateNote = () => {
+      const note = {
+          title: noteTitle.value,
+          text: noteText.value,
+      };
 
-const fetchNotes = () => {
-  fetch('/api/notes')
-    .then((res) => res.json())
-    .then((data) => renderNotes(data))
-    .catch((err) => console.error('Error fetching notes:', err));
-};
+      let fetchOptions = {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(note),
+      };
 
-const saveNote = (note) => {
-  fetch('/api/notes', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(note),
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      renderNote(data);
+      if (editingNote) {
+          fetchOptions.method = 'PUT';
+          note.id = noteId.value;
+      }
+
+      fetch('/api/notes', fetchOptions)
+          .then(response => response.json())
+          .then(data => {
+              getNotes();
+              clearForm();
+          })
+          .catch(err => console.error('Error:', err));
+  };
+
+  const getNotes = () => {
+      fetch('/api/notes')
+          .then(response => response.json())
+          .then(data => renderNotes(data))
+          .catch(err => console.error('Error:', err));
+  };
+
+  const clearForm = () => {
       noteTitle.value = '';
       noteText.value = '';
-    })
-    .catch((err) => console.error('Error saving note:', err));
-};
-
-const handleFormSubmit = () => {
-  const newNote = {
-    title: noteTitle.value.trim(),
-    text: noteText.value.trim(),
+      noteId.value = '';
+      editingNote = false;
   };
-  if (!newNote.title || !newNote.text) {
-    alert('Please fill out both fields');
-    return;
-  }
-  saveNote(newNote);
-};
 
-const handleNoteDelete = (e) => {
-  if (!e.target.matches('.delete-note')) return;
-  const id = e.target.parentNode.dataset.id;
-  fetch(`/api/notes/${id}`, {
-    method: 'DELETE',
-  })
-    .then(() => e.target.parentNode.remove())
-    .catch((err) => console.error('Error deleting note:', err));
-};
+  saveNoteBtn.addEventListener('click', saveOrUpdateNote);
+  newNoteBtn.addEventListener('click', clearForm);
 
-saveNoteBtn.addEventListener('click', handleFormSubmit);
-noteList.addEventListener('click', handleNoteDelete);
-noteForm.addEventListener('submit', (e) => {
-  e.preventDefault();
-  handleFormSubmit();
+  getNotes();
 });
-
-fetchNotes();

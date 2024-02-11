@@ -55,8 +55,7 @@ const saveNote = (note) => {
     .catch((err) => console.error('Error saving note:', err));
 };
 
-const handleFormSubmit = (e) => {
-  e.preventDefault();
+const handleFormSubmit = () => {
   const newNote = {
     title: noteTitle.value.trim(),
     text: noteText.value.trim(),
@@ -66,6 +65,16 @@ const handleFormSubmit = (e) => {
     return;
   }
   saveNote(newNote);
+};
+
+const handleNewNote = () => {
+  noteTitle.value = '';
+  noteText.value = '';
+};
+
+const handleClearForm = () => {
+  noteTitle.value = '';
+  noteText.value = '';
 };
 
 const handleNoteDelete = (e) => {
@@ -78,22 +87,9 @@ const handleNoteDelete = (e) => {
     .catch((err) => console.error('Error deleting note:', err));
 };
 
-const clearForm = () => {
-  noteTitle.value = '';
-  noteText.value = '';
-};
-
-const handleNewNote = () => {
-  clearForm();
-};
-
-const handleClearForm = () => {
-  clearForm();
-};
-
 saveNoteBtn.addEventListener('click', handleFormSubmit);
-noteList.addEventListener('click', handleNoteDelete);
 newNoteBtn.addEventListener('click', handleNewNote);
 clearBtn.addEventListener('click', handleClearForm);
+noteList.addEventListener('click', handleNoteDelete);
 
 fetchNotes();

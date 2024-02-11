@@ -67,16 +67,6 @@ const handleFormSubmit = () => {
   saveNote(newNote);
 };
 
-const handleNewNote = () => {
-  noteTitle.value = '';
-  noteText.value = '';
-};
-
-const handleClearForm = () => {
-  noteTitle.value = '';
-  noteText.value = '';
-};
-
 const handleNoteDelete = (e) => {
   if (!e.target.matches('.delete-note')) return;
   const id = e.target.parentNode.dataset.id;
@@ -88,8 +78,10 @@ const handleNoteDelete = (e) => {
 };
 
 saveNoteBtn.addEventListener('click', handleFormSubmit);
-newNoteBtn.addEventListener('click', handleNewNote);
-clearBtn.addEventListener('click', handleClearForm);
 noteList.addEventListener('click', handleNoteDelete);
+noteForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+  handleFormSubmit();
+});
 
 fetchNotes();
